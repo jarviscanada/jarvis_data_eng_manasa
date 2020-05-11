@@ -30,7 +30,6 @@ if [ "$1" == "create" ]; then
   docker run --name jrvs-psql -e POSTGRES_PASSWORD=db_password -e POSTGRES_USER=db_username -d -v pgdata:/var/lib/postgresql/data -p 5432:5432 postgres
   exit $?
 
-  #This if loop checks for the creation the container
   if [ $(docker ps -f name=jrvs-psql| wc -l) == 1 ]; then
       echo "The container jrvs-sql has not been created"
       exit 1
@@ -38,13 +37,12 @@ if [ "$1" == "create" ]; then
       echo "The container jrvs-sql has been created"
   fi
 
-#This loop is executed for the condition start
 elif [ "$1" = "start" ]; then
   docker container start jrvs-psql
   echo "The container has been started."
   exti $?
 
-#This loop is executed for the condition stop
+
 elif [ "$1" = "stop" ]; then
   docker container stop jrvs-psql
   echo "The container has been stopped"
@@ -55,4 +53,3 @@ else
   echo "This command is invalid"
   exit 1
 fi
-# close of the if loop to check on the condition -create/ start/stop
