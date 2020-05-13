@@ -3,13 +3,14 @@
 # CLI arguments are assigned to variables.
 db_username=$2
 db_password=$3
+mode=$1
 
 if [ $(systemctl status docker | wc -l) == 20 ]; then
    #systemctl start docker
    echo "The docker engine is running"
 fi
 # in create mode, we check for the existence of docker
-if [ "$1" == "create" ]; then
+if [ "$mode" == "create" ]; then
   #check to see if there is any existing container names -jrvs-psql
   if [ $(docker container ls -a -f name=jrvs-psql | wc -l) == "2" ]; then
      echo "The container jrvs-psql has already been existing."
@@ -17,7 +18,7 @@ if [ "$1" == "create" ]; then
   fi
 
 # To check for the username and password parameters sent as CLI arguments
-  if [ "$2" == "" ] || [ "$3" == "" ]; then
+  if [ "$db_username" == "" ] || [ "$db_password" == "" ]; then
     echo "Please pass both the username and password."
     exit 1
   fi
@@ -39,20 +40,20 @@ if [ "$1" == "create" ]; then
   fi
 
 #This loop is executed for the condition start
-elif [ "$1" = "start" ]; then
+elif [ "$mode" = "start" ]; then
   docker container start jrvs-psql
   echo "The container has been started."
   exti $?
 
 #This loop is executed for the condition stop
-elif [ "$1" = "stop" ]; then
+elif [ "$mode" = "stop" ]; then
   docker container stop jrvs-psql
   echo "The container has been stopped"
   exit $?
-
-
+#This else loop is displayed if any of the modes in the command line do not match
 else
   echo "This command is invalid"
   exit 1
 fi
 # close of the if loop to check on the condition -create/ start/stop
+exit 0
