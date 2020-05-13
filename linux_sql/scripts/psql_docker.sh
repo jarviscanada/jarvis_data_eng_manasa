@@ -5,9 +5,12 @@ db_username=$2
 db_password=$3
 mode=$1
 
+# This loop check if the docker is started or not
 if [ $(systemctl status docker | wc -l) == 20 ]; then
-   #systemctl start docker
    echo "The docker engine is running"
+   else
+   systemctl start docker
+   exit 1
 fi
 # in create mode, we check for the existence of docker
 if [ "$mode" == "create" ]; then
