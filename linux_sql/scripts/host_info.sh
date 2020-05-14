@@ -25,19 +25,20 @@ l2_cache=$(lscpu | egrep "^L2 cache:" | awk '{print $3}' |xargs|egrep -o '[0-9]+
 #to fetch the total memory in the cpu
 total_mem=$(cat /proc/meminfo | egrep "^MemTotal:" | awk '{print $2}' |xargs)
 #to fetch the time stamp of the current transaction
-timestamp=$(vmstat -t | awk '{print $18 " " $19}'|xargs)
-
+#timestamp=$(vmstat -t | awk '{print $18 " " $19}'|xargs)
+timestamp=$(vmstat -t | awk '{print $18 " " $19}'|xargs | awk '{print $2}' |xargs)
 # -h specifies the hostname of the machine on which the server is running
 # -U specifies the username
 # -d specifies the name of the database to connect to
+
 # -c specified that we are running single command
 # -p specifies the port number on which the server is running
-psql -h "$psql_host" -U "$psql_user" -d "$db_name" -p "$psql_port" "$psql_password" -c "INSERT INTO host_info(
+psql -h "$psql_host" -U "$psql_user" -d "$db_name" -p "$psql_port" -W "$psql_password" -c "INSERT INTO host_info(
                                                    hostname, cpu_number, cpu_architecture,
                                                   cpu_model, cpu_mhz, l2_cache, total_mem,
                                                     timestamp
                                                   ) VALUES
-  ('"$hostname" + !', "$cpu_number", '"$cpu_architecture"', '"$cpu_model"', "$cpu_mhz","$l2_cache","$total_mem",'"$timestamp"');"
+  ('"$hostname"', "$cpu_number", '"$cpu_architecture"', '"$cpu_model"', "$cpu_mhz","$l2_cache","$total_mem",'"$timestamp"');"
 
 #to execute the script in terminal
 #./scripts/host_info.sh "localhost" 5432 "host_agent" "postgres" "password"
