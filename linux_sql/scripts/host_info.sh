@@ -5,7 +5,9 @@ psql_host=$1
 psql_port=$2
 db_name=$3
 psql_user=$4
-psql_password=$5
+#psql_password=$5
+
+EXPORT PGPASSWORD = $5
 
 #hardware specifications from various commands formatted.
 #lscpu_out=`lscpu`
@@ -33,7 +35,7 @@ timestamp=$(vmstat -t | awk '{print $18 " " $19}'|xargs | awk '{print $2}' |xarg
 
 # -c specified that we are running single command
 # -p specifies the port number on which the server is running
-psql -h "$psql_host" -U "$psql_user" -d "$db_name" -p "$psql_port" -W "$psql_password" -c "INSERT INTO host_info(
+psql -h "$psql_host" -U "$psql_user" -d "$db_name" -p "$psql_port" POSTGRES_PASSWORD="$PGPASSWORD" -c "INSERT INTO host_info(
                                                    hostname, cpu_number, cpu_architecture,
                                                   cpu_model, cpu_mhz, l2_cache, total_mem,
                                                     timestamp
