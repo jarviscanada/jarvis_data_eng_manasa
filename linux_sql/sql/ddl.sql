@@ -18,18 +18,20 @@ CREATE TABLE IF NOT EXISTS PUBLIC.host_info (
   L2_cache          SMALLINT NOT NULL,
   total_mem         INTEGER NOT NULL,
   timestamp         TIMESTAMP NOT NULL,
-  CONSTRAINT pk_hostname PRIMARY KEY(hostname,id)
+  CONSTRAINT pk_hostname PRIMARY KEY(id),
+  UNIQUE (hostname)
 );
 
 -- DDL statement for host_usage table creation
 CREATE TABLE IF NOT EXISTS PUBLIC.host_usage (
-  host_id       SERIAL NOT NULL PRIMARY KEY,
+  host_id       SERIAL NOT NULL,
   "timestamp"   TIMESTAMP NOT NULL,
   memory_free   INTEGER NOT NULL,
   cpu_idle      INTEGER NOT NULL,
   cpu_kernel    INTEGER NOT NULL,
   disk_io       INTEGER NOT NULL,
-  disk_available INTEGER NOT NULL
+  disk_available INTEGER NOT NULL,
+  FOREIGN KEY (host_id) REFERENCES host_info(id)
   );
 
   --check for the newly created tables
