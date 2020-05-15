@@ -26,8 +26,8 @@ disk_available=$(df -BM |egrep "^/dev/sda2" |awk '{print $4}'| xargs| egrep -o '
 
 #need to store it in a variable - get the host_id (use the sub query host name available)
 host_id=$(psql -h "$psql_host" -U "$psql_user" -p "$psql_port" -d "$db_name"  POSTGRES_PASSWORD="$PGPASSWORD" -c "SELECT id
-                                                                                                        from host_info;" |awk '{print $1}'|xargs| awk '{print $3}'|xargs)
-                                                                                                        #where hostname="$hostname";"  )                                                                                                                                                                             hostname='"$hostname"');")
+                                                                                                        from host_info
+                                                                                                        where hostname='"$hostname"';" |awk '{print $1}'|xargs| awk '{print $3}'|xargs)
 #echo "$hostname"
 #echo "$host_id"
 psql -h "$psql_host" -U "$psql_user" -d "$db_name" -p "$psql_port" POSTGRES_PASSWORD="$PGPASSWORD" -c "INSERT INTO host_usage
