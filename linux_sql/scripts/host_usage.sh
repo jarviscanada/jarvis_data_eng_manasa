@@ -24,6 +24,6 @@ host_id=$(psql -h "$psql_host" -U "$psql_user" -p "$psql_port" -d "$db_name"  PO
 
 psql -h "$psql_host" -U "$psql_user" -d "$db_name" -p "$psql_port" POSTGRES_PASSWORD="$PGPASSWORD" -c "INSERT INTO host_usage
                                                                                                       (host_id,timestamp, memory_free, cpu_idle,
-                                                                                                      cpu_kernel, disk_io, disk_available)
+                                                                                                      cpu_kernel, disk_io, disk_available,timestamp_round)
                                                                                                     VALUES
-                                                               ("$host_id",'$timestamp',"$memory_free","$cpu_idle","$cpu_kernel","$disk_io","$disk_available");"
+                                                               ("$host_id",'$timestamp',"$memory_free","$cpu_idle","$cpu_kernel","$disk_io","$disk_available", date_round_down('$timestamp','5 minutes'));"
