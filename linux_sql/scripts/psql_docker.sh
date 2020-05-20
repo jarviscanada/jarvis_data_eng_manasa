@@ -5,10 +5,12 @@ db_username=$2
 db_password=$3
 mode=$1
 
+# This loop check if the docker is started or not
 if [ $(systemctl status docker | wc -l) == 20 ]; then
    echo "The docker engine is running"
    else
    systemctl start docker
+   exit 1
 fi
 # in create mode, we check for the existence of docker
 if [ "$mode" == "create" ]; then
@@ -51,8 +53,7 @@ elif [ "$mode" = "stop" ]; then
   docker container stop jrvs-psql
   echo "The container has been stopped"
   exit $?
-
-
+#This else loop is displayed if any of the modes in the command line do not match
 else
   echo "This command is invalid"
   exit 1
@@ -60,3 +61,4 @@ fi
 # close of the if loop to check on the condition -create/ start/stop
 exit 0
 #exit the script file with a success code
+
