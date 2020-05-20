@@ -60,3 +60,5 @@ else
 fi
 # close of the if loop to check on the condition -create/ start/stop
 exit 0
+#exit the script file with a success code
+
