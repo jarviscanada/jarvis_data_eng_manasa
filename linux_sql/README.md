@@ -27,7 +27,7 @@ We have modelled a database with two tables.
  
 ##### Parameters captured in host_info table
 Column Name | Description
-----------------------------------------------------
+-------------|---------------------------------------
 id | This is the primary and auto increment field
 host_name| This displays the name of the host computer. In a network, there are many computers and each one has a name. 
 cpu_number|This is the number of CPUs on the host.
@@ -37,10 +37,10 @@ cpu_mhz | This describes the frequency of the CPU.
 L2_cache| This talks about the L2 cache memory.
 total_mem | This gives the total memory of the host.
 timestamp | This tracks the timestamp of the information captured.
------------------------------------------------------
+---------------|--------------------------------------
 ##### Parameters captured in host_usage table
 Column Name | Description
------------------------------------------------------
+--------------|---------------------------------------
 host_id | This is a foreign key referencing from the id of the host info table.
 timestamp | The timestamp for each data entered is captured.
 memory_free| The memory available is noted.
@@ -48,7 +48,7 @@ cpu_idle| The cpu idle information
 cpu_kernel| The details of the cpu kernel is captured.
 disk_io | This has the disk input output information.
 disk_available | This gives the available disk option.
------------------------------------------------------
+----------------|-------------------------------------
 
 ###Usage
 The database tends to capture the network details of the host computer in the network. To make the capture efficient, since the network and memory usage change every minute, 
