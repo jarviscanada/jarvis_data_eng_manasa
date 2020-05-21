@@ -1,5 +1,5 @@
 
-#Linux Cluster Monitoring Agent
+*#Linux Cluster Monitoring Agent*
 
 ##Introduction
 In an organisation, there are a number of computers connected over a secured network. This connection between the computers and servers is maintained in the network through the use of a switch.
@@ -9,6 +9,7 @@ Architecture and Design
 
 ##Current Project
 This project is about monitoring the computer(host) usage for a single computer which is similar to tracking the parameters over a network.
+
 ##Architecture and Design
 ![Image of Architecture Diagram](./images/Architecture.png)
 
